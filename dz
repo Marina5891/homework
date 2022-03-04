@@ -1,0 +1,89 @@
+// Анаграмма должна содержать одинаковые буквы:
+// 'abba' & 'baab' == true
+// 'abba' & 'bbaa' == true
+// 'abba' & 'abbba' == false
+// 'abba' & 'abca' == false
+
+// Напишите функцию, которая найдет все анаграммы слова из списка. 
+// Вам будет дано два аргумента слово и массив со словами.
+// Вы должны вернуть массив всех анаграмм или пустой массив, если их нет
+/*
+let list = ['baab','abbba','bbaa','abca'];
+
+let anagrams = (word, wordsList) => {
+    function sortElem (n) {
+        return n.split('').sort().join('');
+    }
+    let arr = [];
+    let sortArr = wordsList.map(el => sortElem(el));
+
+    sortArr.forEach((el, i) => {
+        if (sortElem(word) == el) {
+            arr.push(wordsList[i]);
+        }
+    });
+
+    return arr;
+}
+
+console.log(anagrams('baca', list));
+*/
+//  Задача состоит в расширении функциональности встроенных классов. 
+//  Нужно расширить встроенный класс Array следующими методами: square(), sum(), even() и odd().
+
+// square() должен возвращать копию массива в котором каждый элемент возведен в квадрат
+// sum() должен возвращать сумму массива в виде числа
+// even() должен вернуть массив всех четных чисел
+// odd() must return an array of all odd numbers
+// Note: инстанс массива (сам массив) изменять не нужно, вы работаете только с клаcсом Array
+
+// var numbers = [1, 2, 3, 4, 5]
+// numbers.square();  //[1, 4, 9, 16, 25]
+// numbers.sum();     //15
+// numbers.even();    //[2, 4]
+// numbers.odd();     //[1, 3, 5]
+/*
+Array.prototype.square = function() {
+    return this.map(el => el ** 2);
+    }
+
+Array.prototype.sum = function() {
+    return this.reduce(function (sum, elem) { return sum + elem}, 0);
+}
+
+Array.prototype.odd = function() {
+    return this.filter(elem => elem % 2 != 0);
+}
+
+Array.prototype.even = function() {
+    return this.filter(elem => elem % 2 == 0);
+}
+*/
+//  Даны два массива с числами 
+// Задача: 
+// написать функцию, которая принимает два массива ( усложненная версия с неизвестным числом массивов)
+// склеивает их
+// и считает сумму 
+
+/*
+const first = [1, 2, 3];
+const second = [10, 1, 5];
+
+const arrayPlusArray = (arr1, arr2) => {
+    return sumArr = arr1.concat(arr2).reduce(function (sum, el) {return sum + el}, 0);
+};
+
+console.log(arrayPlusArray(first, second));
+*/
+
+/*
+const first = [1, 2, 3];
+const second = [10, 1, 5];
+const third = [2, 3];
+const fourth = [1, 1, 5];
+const arrayPlusArray = (...arrays) => {
+    return sumArr = [].concat(...arrays).reduce(function (sum, el) {return sum + el}, 0);
+};
+
+console.log(arrayPlusArray(first, second, third, fourth));
+*/
