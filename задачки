@@ -1,0 +1,67 @@
+/*
+
+Дан массив. Выведите его элементы в виде списка ul.
+
+Модифицируйте предыдущую задачу так, чтобы по клику на любую li в ней появлялся инпут, с помощью которого ее можно будет поредактировать.
+
+Модифицируйте предыдущую задачу так, чтобы под списком был инпут, с помощью которого можно будет добавить новый элемент в конец списка ul. Сделайте так, чтобы новые li также можно было редактировать.
+
+Модифицируйте предыдущую задачу так, чтобы в конце каждой li стояла ссылка 'удалить', с помощью которой можно будет удалить эту li из ul.
+
+Модифицируйте предыдущую задачу так, чтобы в конце каждой li также стояла ссылка 'перечеркнуть', с помощью которой можно будет перечеркнуть текст данного тега li.
+
+*/
+
+let arr = 'Hello'.split('');
+let ul = document.createElement('ul');
+
+function createEl (el) {
+    let li = document.createElement('li');
+    let remove = document.createElement('a');
+    let lineThrough = document.createElement('a');
+    li.innerHTML = `<span>${this.value}</span>`;
+    li.firstElementChild.addEventListener('click', function func() {
+        let input = document.createElement('input');
+        
+        input.value = this.innerText;
+        
+        input.addEventListener('blur', function() {
+            li.firstElementChild.innerText = this.value;
+            this.remove();
+            li.firstElementChild.addEventListener('click', func);
+        })
+
+        li.after(input);
+        this.removeEventListener('click', func);
+    })
+    ul.appendChild(li);
+
+    remove.innerText = 'remove';
+    remove.href = '';
+    remove.addEventListener('click', function(event) {
+        li.remove();
+        this.remove();
+        event.preventDefault();
+    })
+    li.appendChild(remove);
+
+    lineThrough.innerText = 'lineThrough';
+    lineThrough.href = '';
+    lineThrough.addEventListener('click', function(event) {
+        li.firstElementChild.style.textDecoration = 'line-through';
+        event.preventDefault();
+    })
+    remove.after(lineThrough);
+}
+
+arr.map(el => {
+    this.value = el;
+    createEl(el)
+})
+
+document.body.appendChild(ul);
+
+let input2 = document.createElement('input');
+input2.value = 'text';
+ul.after(input2);
+input2.addEventListener('blur', createEl);
