@@ -12,7 +12,6 @@ export const NavBar = () => {
             alignItems: 'center'
           }} 
           component='nav'
-          
         >
           <Button
             component='a'

@@ -16,6 +16,14 @@ class Api {
             }
         }).then(onResponse)
     }
+
+    getUser() {
+        return fetch(`${this._url}/users/me`, {
+            headers: {
+                authorization: `Bearer ${this._token}`
+            }
+        }).then(onResponse)
+    }
 }
 
 export default new Api(config);
