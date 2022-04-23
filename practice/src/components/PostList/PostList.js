@@ -3,9 +3,8 @@ import Post from '../Post/Post';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
-function PostList({ posts }) {
-  const arrayPosts = posts?.map(post => Post(post))
-      
+function PostList({ posts, favorite, setFavorite}) {
+
   return (
     <Container maxWidth='lg' >
       <Box 
@@ -15,7 +14,16 @@ function PostList({ posts }) {
           justifyContent: 'space-between'
         }}
       >
-        {arrayPosts}
+      {posts?.map((post) => (
+        <Post 
+          post={post} 
+          key={post._id}
+          favorite={favorite}
+          setFavorite={setFavorite}
+          isItFavorite={favorite.includes(post._id)}
+        />
+        ))
+      } 
       </Box> 
     </Container> 
   ) 

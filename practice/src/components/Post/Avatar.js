@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 
 export const UserAvatar = ({avatar, email}) => {
+  
   return (
     <Box sx={{
         display: 'flex', 
@@ -26,7 +27,7 @@ export const UserAvatar = ({avatar, email}) => {
         }}
       >
         {email}
-      </Typography>
+      </Typography> 
       </Box>
   )
 }

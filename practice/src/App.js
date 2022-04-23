@@ -8,11 +8,12 @@ import './style.css';
 function App () {
     const [user, setUser] = useState(null);
     const [posts, setPosts] = useState(null);
-  
+    const [favorite, setFavorite] = useState(JSON.parse(localStorage.getItem('favorite')) || [])
+
     useEffect(() => {
       api.getPosts()
-      .then(json => setPosts(json))
-      }, [])
+      .then(post => setPosts(post))
+      }, [favorite])
 
     useEffect(() => {
       api.getUser()
@@ -20,12 +21,17 @@ function App () {
     }, [])
 
     return (
-        <>
+          <>
             <Header />
-            <MainContainer user={user} posts={posts} />
+            <MainContainer 
+              user={user} 
+              posts={posts}
+              favorite={favorite} 
+              setFavorite={setFavorite}
+            />
             <Footer />
-        </>
-  )
+          </>
+    )
 }
 
 
