@@ -1,0 +1,44 @@
+{
+  "name": "practice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@svgr/webpack": "^6.2.1",
+    "babel-loader": "^8.2.4",
+    "css-loader": "^6.7.1",
+    "editorconfig-checker": "^4.0.2",
+    "html-webpack-plugin": "^5.5.0",
+    "rimraf": "^3.0.2",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.71.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
+  },
+  "dependencies": {
+    "@date-io/dayjs": "^2.13.1",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.6.1",
+    "@mui/lab": "^5.0.0-alpha.77",
+    "@mui/material": "^5.6.1",
+    "core-js": "^3.21.1",
+    "dayjs": "^1.11.1",
+    "normalize.css": "^8.0.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "6"
+  },
+  "scripts": {
+    "editorconfig": "editorconfig-checker",
+    "test": "npm run editorconfig",
+    "build:prod": "rimraf ./dist && webpack --mode production --config webpack.config.js",
+    "build:dev": "rimraf ./dist && webpack --mode development --config webpack.config.js",
+    "start": "webpack serve"
+  }
+}
