@@ -10,12 +10,22 @@ class Api {
         this._token = token;
     }
     
-    getPosts() {
+    /* getPosts() {
         return fetch(`${this._url}/posts`, {
             headers: {
                 authorization: `Bearer ${this._token}`
             }
         }).then(onResponse)
+        .catch(err => alert(err))
+    } */
+
+    getPosts(pageNumber) {
+        return fetch(`${this._url}/posts/paginate?page=${pageNumber}&limit=12`, {
+            headers: {
+                authorization: `Bearer ${this._token}`,
+            }
+        }).then(onResponse)
+        .catch(err => alert(err))
     }
 
     getUser() {
@@ -24,6 +34,7 @@ class Api {
                 authorization: `Bearer ${this._token}`
             }
         }).then(onResponse)
+        .catch(err => alert(err))
     }
 
     addLike(postId) {
@@ -33,6 +44,7 @@ class Api {
                 authorization: `Bearer ${this._token}`
             }
         }).then(onResponse)
+        .catch(err => alert(err))
     }
 
     deleteLike(postId) {
@@ -42,6 +54,7 @@ class Api {
                 authorization: `Bearer ${this._token}`
             }
         }).then(onResponse)
+        .catch(err => alert(err))
     }
 
     deletePost(postId) {
@@ -51,7 +64,39 @@ class Api {
                 authorization: `Bearer ${this._token}`
             }
         }).then(onResponse)
+        .catch(err => alert(err))
     }
+    
+    addPost(post) {
+        return fetch(this._url + '/posts', {
+            method: 'POST',
+            headers: {
+                authorization: `Bearer ${this._token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(post)
+        }).then(onResponse)
+        .catch(err => alert(err))
+    }
+
+    getPost(postId) {
+        return fetch(`${this._url}/posts/${postId}`, {
+            headers: {
+                authorization: `Bearer ${this._token}`
+            }
+        }).then(onResponse)
+        .catch(err => alert(err))
+    }
+
+    getComments(postId) {
+        return fetch(`${this._url}/posts/comments/${postId}`, {
+            headers: {
+                authorization: `Bearer ${this._token}`
+            }
+        }).then(onResponse)
+        .catch(err => alert(err))
+    }
+
 }
 
 export default new Api(config);

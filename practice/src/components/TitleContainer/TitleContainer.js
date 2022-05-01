@@ -1,44 +1,44 @@
 import React from 'react';
-import { AppButton } from '../Button/Button';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
+import { Box, Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { pink } from '@mui/material/colors';
+import { deepPurple } from '@mui/material/colors';
+import lavanda from '../../../public/assets/png/lavanda.png'
 
-function TitleContainer({ userName }) {
+function TitleContainer() {
   return (
-    <Container maxWidth='lg' 
-    sx={{
-      display: 'flex', 
-      justifyContent: 'space-between'
-    }}>  
-      <Box>
-        <Typography 
-          variant='h6' 
-          component='h1' 
-          sx={{mb: 2, color: pink[600]}}
-        >
-          Hello dear {userName}!
-        </Typography>
-        <Typography
-          variant='body1'
-          component='h1'
-          gutterBottom={true}
-        >
-          Welcome to Our Image Board!
-        </Typography>
-        <Typography
-          paragraph={true}
-          sx={{fontSize: '14px'}}
-        >
-          We're stoked that you're here. &#128568;
-        </Typography>
-      </Box>
-      <Box>
-        <AppButton />
-      </Box>
-    </Container>
+    <Box sx={{
+        width: '100vw', 
+        backgroundImage: `url(${lavanda})`, 
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: 300,
+        marginBottom: 10,
+        marginTop: 8,
+        paddingTop: 12,
+        color: deepPurple[50]
+      }}
+      position='relative'
+    >
+      <Grid container direction='row' justifyContent='center'>
+        <Grid item>
+          <Typography
+            variant='h4'
+            component='h1'
+            gutterBottom
+          >
+            Welcome to the stories page!
+          </Typography>
+          <Typography
+            paragraph
+            sx={{fontSize: '20px', textAlign: 'center'}}
+          >
+            Here you can read other people's stories {<br/>} or write your own story.
+          </Typography>
+        </Grid>
+      </Grid>
+    </Box> 
   )
 }
 
-export default TitleContainer
+export default TitleContainer;

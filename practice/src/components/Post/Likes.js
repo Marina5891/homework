@@ -43,7 +43,7 @@ export const Likes = ({ likes, postId, setFavorite, isItFavorite, writeLS, remov
 
   return (
     <ThemeProvider theme={theme}>
-      <Badge badgeContent={badgeContent} color='primary' showZero >
+      <Badge badgeContent={badgeContent} color='primary' showZero>
       {
         isItFavorite ? (
         <Button onClick={removeFavorite}>

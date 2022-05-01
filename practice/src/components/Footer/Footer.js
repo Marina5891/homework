@@ -23,7 +23,7 @@ export const Footer = () => {
         variant='body2'
         sx={{textAlign: 'center', fontSize: '12px'}}
       >
-        &#169; You!
+        &#169; My React Pages!
       </Typography>
         
     </AppBar>

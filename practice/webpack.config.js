@@ -4,8 +4,9 @@ const HTMLWebpackPlugins = require('html-webpack-plugin');
 module.exports = {
    entry: path.resolve(__dirname, 'src/index.js'),//точка входа в наше приложение содержит абсолютный путь к index.js
 output: {
-      path: path.resolve(__dirname, 'dist'),//путь куда будет собираться наш проект
-filename: "main.js"// имя нашего бандла
+   path: path.resolve(__dirname, 'dist'),//путь куда будет собираться наш проект
+   filename: "main.js", // имя нашего бандла
+   publicPath: "/"
 },
   mode: "development",// по умолчанию webpack миницифирует скрипты, чтобы это избежать меняем режим
    //Нужно помочь вебпаку научиться работать с jsx и tsx файлами для этого используют ts loader

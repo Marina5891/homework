@@ -4,11 +4,13 @@ import Button from '@mui/material/Button';
 import { pink, deepPurple } from '@mui/material/colors';
 
 export const DeleteButton = ({ postId }) => {
-    const deleteThisPost = () => {
+    
+  const deleteThisPost = () => {
         api.deletePost(postId)
         .then(data => alert('Ваш пост удален'))
         .catch(err => alert(`Не получилось удалить пост: ${err}`))
     }
+
     return (
         <Button 
           variant='outlined'

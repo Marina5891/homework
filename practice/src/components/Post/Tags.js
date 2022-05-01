@@ -10,20 +10,9 @@ export const Tags = ({tags}) => {
     <Box 
         sx={{
         display: 'flex', 
-        justifyContent: 'flex-start', 
-        alignItems: 'center'
+        flexWrap: 'wrap'
         }}
     > 
-        <Typography 
-            component='span'
-            sx={{
-            fontSize: '14px',
-            display: 'inline-block',
-            mr: 2
-            }}
-        > 
-        Tags:
-        </Typography>
         <Stack direction="row" spacing={1}>
             {
             tags.map((tag, i) => {
@@ -36,7 +25,8 @@ export const Tags = ({tags}) => {
                     fontSize: '11px', 
                     borderRadius: '2px',
                     color: deepPurple[600],
-                    borderColor: deepPurple[600]
+                    borderColor: deepPurple[600],
+                    lineHeight: '100%'
                     }} 
                 />
             })

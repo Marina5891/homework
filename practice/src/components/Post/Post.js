@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { Title } from './Title';
 import { UserAvatar } from './Avatar';
 import { Text } from './Text';
@@ -11,22 +13,26 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Divider from '@mui/material/Divider';
 import { deepPurple } from '@mui/material/colors';
-import Oops from '../../../public/assets/png/Oops.png'
+import Oops from '../../../public/assets/png/Oops.png';
+import '../../style.css';
+
 const dayjs = require('dayjs');
 
-function Post({ post, setFavorite, favorite, isItFavorite}) {
-
+function Post({ post, setFavorite, favorite, isItFavorite, userId }) {
   const {title, author, text, likes, created_at, updated_at, tags, _id, image} = post;
-  let avatar, email;
+  let avatar, email, myId;
 
   author !== null ? (
-    { avatar, email } = author) : (
+    { avatar, email, _id: myId } = author) : (
     (avatar = Oops) && (email = 'No email'))
   
   const createdDate = dayjs(created_at).format('DD/MM/YYYY, HH:mm:ss')
   const updatedDate = dayjs(updated_at).format('DD/MM/YYYY, HH:mm:ss')
-  const arrayTags = tags.filter(tag => { return (tag !== '' && tag != 'undefined' && tag !== ' ') } ); 
-  
+
+  const arrayTags = tags.filter(tag => {
+    return (tag !== '' && tag != 'undefined' && tag !== ' ') 
+  }); 
+
   const writeLS = (key, value) => {
     const storage = JSON.parse(localStorage.getItem(key)) || [];
     storage.push(value);
@@ -50,7 +56,9 @@ function Post({ post, setFavorite, favorite, isItFavorite}) {
       variant='outlined'
     >
       <CardContent>
-        <Title title={title} />
+        <Link to={`post/${_id}`} className='link'>
+          <Title title={title} />
+        </Link>
         <Divider sx={{mb: 2, backgroundColor: deepPurple[100]}}/>
         <UserAvatar avatar={avatar} email={email} />
         <CardMedia 
@@ -72,7 +80,12 @@ function Post({ post, setFavorite, favorite, isItFavorite}) {
           writeLS={writeLS}
           removeLS={removeLS}
         />
-        <DeleteButton postId={_id}/>
+        {
+          userId === myId ?
+          (<DeleteButton postId={_id} />) :
+          (<span style={{display: 'none'}}><DeleteButton /></span>)
+        }
+        
       </CardContent>
     </Card>
   )
