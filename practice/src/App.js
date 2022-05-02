@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from "react-router-dom";
 import FavoritesContext from './contexts/favoritesContext';
+import UserContext from './contexts/userContext';
 import api from './utilits/api';
 import { Header } from './components/Header/Header';
 import { MainContainer } from './components/MainContainer/MainContainer';
@@ -52,32 +53,34 @@ function App () {
     return (
       <ThemeProvider theme={theme}>
         <FavoritesContext.Provider value={{favorite, setFavorite}}>
-          <div className='app'>
-            <Header />
-              <Routes>
-                <Route path='/' element={
-                    <MainContainer 
-                      user={user} 
-                      posts={posts}
-                      favorite={favorite} 
-                      setFavorite={setFavorite}
-                      page={page}
-                      setPage={setPage}
-                      quantityPages={quantityPages}
-                    />
-                  } 
-                />
-                <Route 
-                  path='create' 
-                  element={<CreatePost setPosts={setPosts} quantityPages={quantityPages}/>} 
-                />
-                <Route 
-                  path='post/:postId' 
-                  element={<PostCard />} 
-                />
-              </Routes>
-            <Footer />
-          </div>
+          <UserContext.Provider value={{user, setUser}}>
+            <div className='app'>
+              <Header />
+                <Routes>
+                  <Route path='/' element={
+                      <MainContainer 
+                        user={user} 
+                        posts={posts}
+                        favorite={favorite} 
+                        setFavorite={setFavorite}
+                        page={page}
+                        setPage={setPage}
+                        quantityPages={quantityPages}
+                      />
+                    } 
+                  />
+                  <Route 
+                    path='create' 
+                    element={<CreatePost setPosts={setPosts} quantityPages={quantityPages}/>} 
+                  />
+                  <Route 
+                    path='post/:postId' 
+                    element={<PostCard />} 
+                  />
+                </Routes>
+              <Footer />
+            </div>
+          </UserContext.Provider>
         </FavoritesContext.Provider>
       </ThemeProvider>
     )
