@@ -19,7 +19,8 @@ const theme = createTheme({
     },
     secondary: {
       main: pink[400],
-      dark: pink[900]
+      dark: pink[900],
+      contrastText: pink[50]
     },
     button: {
       main: deepPurple[900],
