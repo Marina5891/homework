@@ -30,7 +30,10 @@ export const CreatePost = ({ setPosts, quantityPages }) => {
   }
 
   return (
-  <Container maxWidth='md' sx={{margin: '0 auto', height: '100vh'}} >
+  <Container 
+    maxWidth='md' 
+    sx={{marginX: 'auto', marginTop: 15, height: '100vh'}} 
+  >
     <FormControl 
       onSubmit={handleSubmit} 
       autoComplete='off'
