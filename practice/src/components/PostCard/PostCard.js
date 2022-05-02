@@ -4,7 +4,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import FavoritesContext from '../../contexts/favoritesContext';
 import api from '../../utilits/api';
 import { Likes } from '../Post/Likes';
-import { Card, CardMedia, CardHeader, CardContent, CardActions, Button, Typography, Grid, Avatar, IconButton, Box } from '@mui/material';
+import { Card, CardMedia, CardHeader, CardContent, CardActions, Button, Typography, Grid, Avatar, IconButton, Box, Badge } from '@mui/material';
 import MessageIcon from '@mui/icons-material/Message';
 import { deepPurple, pink } from '@mui/material/colors';
 
@@ -23,7 +23,7 @@ export const PostCard = () => {
   
   useEffect(() => {
     api.getPost(params.postId)
-    .then(data => setPost(data))
+    .then(data => {setPost(data); setComments(data.comments)})
     .catch(error => alert(error))
   }, [])
 
@@ -105,7 +105,10 @@ export const PostCard = () => {
                     aria-label="comments" 
                     onClick={handleClickGetComments} 
                     >
-                    <MessageIcon sx={{color: deepPurple[600]}}/>
+                    <Badge badgeContent={comments?.length} color='badge' showZero>
+                      <MessageIcon sx={{color: deepPurple[600]}}/>
+                    </Badge>
+                    
                   </IconButton>
                 </Grid>
               </Grid>

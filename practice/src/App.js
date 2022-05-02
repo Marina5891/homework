@@ -25,6 +25,10 @@ const theme = createTheme({
       main: deepPurple[900],
       contrastText: pink[600]
     },
+    badge: {
+      main: pink[600],
+      contrastText: pink[50]
+    }
   }
 })
 
@@ -42,7 +46,7 @@ function App () {
         setQuantityPages(Math.ceil(post.total/12))
       })
       .catch(err => alert(err))
-      }, [page, quantityPages])
+      }, [page, quantityPages, favorite])
       
     useEffect(() => {
       api.getUser()

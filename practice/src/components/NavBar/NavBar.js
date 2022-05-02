@@ -8,7 +8,7 @@ import { deepPurple } from '@mui/material/colors';
 
 export const NavBar = () => {
   const {user} = useContext(UserContext);
-  console.log(user)
+
   return (
         <Box 
           sx={{ 

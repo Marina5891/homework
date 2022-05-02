@@ -4,16 +4,7 @@ import Badge from '@mui/material/Badge';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import Button from '@mui/material/Button';
-import { createTheme, ThemeProvider } from '@mui/material';
-import { pink, deepPurple } from '@mui/material/colors';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: pink[600],
-    },
-  },
-});
+import { deepPurple } from '@mui/material/colors';
 
 export const Likes = ({ likes, postId, setFavorite, isItFavorite, writeLS, removeLS }) => {
 
@@ -42,20 +33,24 @@ export const Likes = ({ likes, postId, setFavorite, isItFavorite, writeLS, remov
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Badge badgeContent={badgeContent} color='primary' showZero>
+
+      <>
       {
         isItFavorite ? (
         <Button onClick={removeFavorite}>
-          <FavoriteIcon sx={{color: deepPurple[600], mb: 2}} />
+          <Badge badgeContent={badgeContent} color='badge' showZero>
+            <FavoriteIcon sx={{color: deepPurple[600], mb: 2}} />
+          </Badge>
         </Button>
         ) : (
         <Button onClick={addFavorite}>
-          <FavoriteBorderOutlinedIcon sx={{color: deepPurple[600], mb: 2}} />
+          <Badge badgeContent={badgeContent} color='badge' showZero>
+            <FavoriteBorderOutlinedIcon sx={{color: deepPurple[600], mb: 2}} />
+          </Badge>  
         </Button>
         )
       }
-      </Badge>
-    </ThemeProvider>
+      </>
+
   )
 }
