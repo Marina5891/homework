@@ -1,7 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { pink, deepPurple } from '@mui/material/colors';
-import { useNavigate } from 'react-router-dom';
 
 export const CreateButton = () => {
   const navigate = useNavigate();
@@ -12,7 +12,6 @@ export const CreateButton = () => {
         sx={{
           color: deepPurple[50],
           borderColor: deepPurple[900],
-        
           textTransform: 'none',
           '&:hover': {
             color: pink[50],
@@ -21,7 +20,7 @@ export const CreateButton = () => {
         }}
         onClick={() => {return navigate('create')}}
       >
-        Create post
+        Создать пост
       </Button>    
   )
 }

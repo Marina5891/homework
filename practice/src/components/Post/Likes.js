@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import FavoritesContext from '../../contexts/favoritesContext';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 import api from '../../utilits/api';
 import { Snackbar, Badge, Button, Alert } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
-import { deepPurple } from '@mui/material/colors';
 
-export const Likes = ({ likes, postId, setFavorite, isItFavorite, writeLS, removeLS }) => {
+export const Likes = ({ likes, postId, isItFavorite }) => {
+  const { writeLS, removeLS } = useLocalStorage();
   const [open, setOpen] = useState(false)
   const [badgeContent, setBadgeContent] = useState(likes.length);
+  const { setFavorite } = useContext(FavoritesContext);
   
   const addFavorite = () => { 
     writeLS('favorite', postId);
@@ -58,7 +61,7 @@ export const Likes = ({ likes, postId, setFavorite, isItFavorite, writeLS, remov
         <>
         <Button onClick={addFavorite}>
           <Badge badgeContent={badgeContent} color='badge' showZero>
-            <FavoriteBorderOutlinedIcon sx={{color: deepPurple[600], mb: 2}} />
+            <FavoriteBorderOutlinedIcon color='primary' sx={{mb: 2}} />
           </Badge>  
         </Button>
         <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>

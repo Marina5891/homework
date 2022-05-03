@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route } from "react-router-dom";
 import FavoritesContext from './contexts/favoritesContext';
 import UserContext from './contexts/userContext';
+import PostsContext from './contexts/postsContext';
+import { useLocalStorage } from './hooks/useLocalStorage';
 import api from './utilits/api';
 import { Header } from './components/Header/Header';
 import { MainContainer } from './components/MainContainer/MainContainer';
@@ -34,12 +36,13 @@ const theme = createTheme({
 })
 
 function App () {
+    const {readLS, writeLS} = useLocalStorage();
     const [user, setUser] = useState(null);
     const [posts, setPosts] = useState(null);
     const [favorite, setFavorite] = useState(JSON.parse(localStorage.getItem('favorite')) || [])
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(JSON.parse(localStorage.getItem('page')) || 1)
     const [quantityPages, setQuantityPages] = useState(0)
-
+    
     useEffect(() => {
       api.getPosts(page)
       .then(post => {
@@ -59,32 +62,30 @@ function App () {
       <ThemeProvider theme={theme}>
         <FavoritesContext.Provider value={{favorite, setFavorite}}>
           <UserContext.Provider value={{user, setUser}}>
-            <div className='app'>
-              <Header />
-                <Routes>
-                  <Route path='/' element={
-                      <MainContainer 
-                        user={user} 
-                        posts={posts}
-                        favorite={favorite} 
-                        setFavorite={setFavorite}
-                        page={page}
-                        setPage={setPage}
-                        quantityPages={quantityPages}
-                      />
-                    } 
-                  />
-                  <Route 
-                    path='create' 
-                    element={<CreatePost setPosts={setPosts} quantityPages={quantityPages}/>} 
-                  />
-                  <Route 
-                    path='post/:postId' 
-                    element={<PostCard />} 
-                  />
-                </Routes>
-              <Footer />
-            </div>
+            <PostsContext.Provider value={{posts, setPosts}}>
+              <div className='app'>
+                <Header />
+                  <Routes>
+                    <Route path='/' element={
+                        <MainContainer 
+                          page={page}
+                          setPage={setPage}
+                          quantityPages={quantityPages}
+                        />
+                      } 
+                    />
+                    <Route 
+                      path='create' 
+                      element={<CreatePost setPosts={setPosts} quantityPages={quantityPages}/>} 
+                    />
+                    <Route 
+                      path='post/:postId' 
+                      element={<PostCard />} 
+                    />
+                  </Routes>
+                <Footer />
+              </div>
+            </PostsContext.Provider>
           </UserContext.Provider>
         </FavoritesContext.Provider>
       </ThemeProvider>

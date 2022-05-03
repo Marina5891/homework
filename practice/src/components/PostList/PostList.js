@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PostsContext from '../../contexts/postsContext';
+import FavoritesContext from '../../contexts/favoritesContext';
 import Post from '../Post/Post';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
-function PostList({ posts, favorite, setFavorite, userId }) {
+function PostList() {
+  const { posts } = useContext(PostsContext);
+  const { favorite } = useContext(FavoritesContext);
 
   return (
     <Container maxWidth='lg' >
@@ -18,10 +22,7 @@ function PostList({ posts, favorite, setFavorite, userId }) {
         <Post 
           post={post} 
           key={post._id}
-          favorite={favorite}
-          setFavorite={setFavorite}
           isItFavorite={favorite.includes(post._id)}
-          userId={userId}
         />
         ))
       } 

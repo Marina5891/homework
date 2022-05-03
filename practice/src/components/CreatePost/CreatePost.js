@@ -63,17 +63,15 @@ export const CreatePost = ({ setPosts, quantityPages }) => {
         </Grid>
         <Grid item xs={12} sx={{mb: 4}}>
           <Button 
-            variant='outlined'
+            variant='contained'
             type='submit' 
             sx={{
-              color: deepPurple[900],
+              color: deepPurple[50],
               borderColor: deepPurple[900],
-              fontWeight: 'light', 
-              fontSize: 12, 
               textTransform: 'none',
               '&:hover': {
-                color: pink['A400'],
-                borderColor: pink['A400']
+                color: pink[50],
+                backgroundColor: pink[700]
               }
             }}
           >

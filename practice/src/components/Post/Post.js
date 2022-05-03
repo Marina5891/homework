@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-
+import UserContext from '../../contexts/userContext';
 import { Title } from './Title';
 import { UserAvatar } from './Avatar';
 import { Text } from './Text';
@@ -8,18 +8,16 @@ import { Tags } from './Tags';
 import { TimeLine } from './TimeLine';
 import { Likes } from './Likes';
 import { DeleteButton } from './DeleteButton';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Divider from '@mui/material/Divider';
+import { Card, CardContent, CardMedia, Divider, Paper } from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
 import Oops from '../../../public/assets/png/Oops.png';
 import '../../style.css';
 
 const dayjs = require('dayjs');
 
-function Post({ post, setFavorite, favorite, isItFavorite, userId }) {
-  const {title, author, text, likes, created_at, updated_at, tags, _id, image} = post;
+function Post({ post, isItFavorite }) {
+  const { user } = useContext(UserContext);
+  const { title, author, text, likes, created_at, updated_at, tags, _id, image } = post;
   let avatar, email, myId;
 
   author !== null ? (
@@ -33,26 +31,16 @@ function Post({ post, setFavorite, favorite, isItFavorite, userId }) {
     return (tag !== '' && tag != 'undefined' && tag !== ' ') 
   }); 
 
-  const writeLS = (key, value) => {
-    const storage = JSON.parse(localStorage.getItem(key)) || [];
-    storage.push(value);
-    localStorage.setItem(key, JSON.stringify(storage))
-  };
-
-  const removeLS = (key, value) => {
-    const storage = JSON.parse(localStorage.getItem(key)) || [];
-    const filteredLikes = storage.filter(postId => value !== postId)
-    localStorage.setItem(key, JSON.stringify(filteredLikes))
-  }; 
-
   return (
-    <Card 
+    <Paper 
+      elevation={4}  
       sx={{
         width: 350, 
-        padding: 1, 
         marginBottom: 3,
-        borderColor: deepPurple[100]
       }}
+    >
+    <Card 
+      sx={{padding: 1, borderColor: 'transparent'}}
       variant='outlined'
     >
       <CardContent>
@@ -74,20 +62,16 @@ function Post({ post, setFavorite, favorite, isItFavorite, userId }) {
         <Likes 
           likes={likes} 
           postId={_id} 
-          favorite={favorite}
-          setFavorite={setFavorite}
           isItFavorite={isItFavorite} 
-          writeLS={writeLS}
-          removeLS={removeLS}
         />
         {
-          userId === myId ?
+          user?._id === myId ?
           (<DeleteButton postId={_id} />) :
           (<span style={{display: 'none'}}><DeleteButton /></span>)
         }
-        
       </CardContent>
     </Card>
+    </Paper>
   )
 }
 

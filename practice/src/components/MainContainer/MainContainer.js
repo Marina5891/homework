@@ -1,15 +1,19 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 import TitleContainer from '../TitleContainer/TitleContainer'
 import PostList from '../PostList/PostList'
 import { Pagination, PaginationItem, Stack, Grid } from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
 
-export const MainContainer = ({ user, posts, favorite, setFavorite, page, setPage, quantityPages }) => {
+export const MainContainer = ({ page, setPage, quantityPages }) => {
+  const { writeLS } = useLocalStorage();
 
-  const handleChangePage = (_, pageNumber) => {
+  const handleChangePage = (event, pageNumber) => {
     setPage(pageNumber)
+    localStorage.setItem('page', pageNumber)
   }
+
   return (
     <main>
     <Grid 
@@ -20,16 +24,11 @@ export const MainContainer = ({ user, posts, favorite, setFavorite, page, setPag
       sx={{backgroundColor: deepPurple[50]}}
     >
       <Grid item xs={12}>
-        <TitleContainer userName={user?.name} />
+        <TitleContainer />
       </Grid>
 
       <Grid item xs={12}>
-        <PostList 
-          posts={posts} 
-          favorite={favorite} 
-          setFavorite={setFavorite} 
-          userId={user?._id}
-        />
+        <PostList />
       </Grid>  
 
       <Grid item xs={12} justifyContent='center' marginBottom={4}>

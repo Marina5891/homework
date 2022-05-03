@@ -4,7 +4,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import FavoritesContext from '../../contexts/favoritesContext';
 import api from '../../utilits/api';
 import { Likes } from '../Post/Likes';
-import { Card, CardMedia, CardHeader, CardContent, CardActions, Button, Typography, Grid, Avatar, IconButton, Box, Badge } from '@mui/material';
+import { Card, CardMedia, CardHeader, CardContent, CardActions, Button, Typography, Grid, Avatar, IconButton, Box, Badge, Paper } from '@mui/material';
 import MessageIcon from '@mui/icons-material/Message';
 import { deepPurple, pink } from '@mui/material/colors';
 
@@ -52,13 +52,13 @@ export const PostCard = () => {
       }}
     >
      {post && (
-      <div>
-        <Card 
-          sx={{
+      <Paper elevation={3} sx={{
             width: '80%', 
             marginY: 3, 
             marginX: 'auto',
-          }}
+          }}>
+        <Card 
+          sx={{padding: 3}}
         >
           <CardHeader 
             avatar={
@@ -148,16 +148,16 @@ export const PostCard = () => {
           </Grid> 
           </CardContent>
         </Card>
-      </div>
-
-     )}
+      </Paper>
+      )}
+    
       <Button 
       onClick={handleClickReturn} 
       variant='contained'
       sx={{
+        marginBottom: 3,
         color: deepPurple[50],
         borderColor: deepPurple[900],
-      
         textTransform: 'none',
         '&:hover': {
           color: pink[50],
