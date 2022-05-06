@@ -1,13 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
 import TitleContainer from '../TitleContainer/TitleContainer'
 import PostList from '../PostList/PostList'
 import { Pagination, PaginationItem, Stack, Grid } from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
 
 export const MainContainer = ({ page, setPage, quantityPages }) => {
-  const { writeLS } = useLocalStorage();
 
   const handleChangePage = (event, pageNumber) => {
     setPage(pageNumber)
@@ -49,11 +47,7 @@ export const MainContainer = ({ page, setPage, quantityPages }) => {
           />
         </Stack>
       </Grid>
-    </Grid>
-        
-        
-
-        
+    </Grid>  
     </main>
   )
 }

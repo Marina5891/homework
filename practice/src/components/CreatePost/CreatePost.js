@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../../utilits/api';
+import { useApi } from '../../hooks/useApi';
 import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
@@ -11,6 +11,7 @@ import { pink, deepPurple } from '@mui/material/colors';
 
 export const CreatePost = ({ setPosts, quantityPages }) => {
   const navigate = useNavigate();
+  const api = useApi();
   
   const handleSubmit = (event) => {
     event.preventDefault();

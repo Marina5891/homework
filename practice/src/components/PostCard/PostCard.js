@@ -2,13 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import FavoritesContext from '../../contexts/favoritesContext';
-import api from '../../utilits/api';
+import { useApi } from '../../hooks/useApi';
 import { Likes } from '../Post/Likes';
 import { Card, CardMedia, CardHeader, CardContent, CardActions, Button, Typography, Grid, Avatar, IconButton, Box, Badge, Paper } from '@mui/material';
 import MessageIcon from '@mui/icons-material/Message';
 import { deepPurple, pink } from '@mui/material/colors';
 
 export const PostCard = () => {
+  const api = useApi();
   const params = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
@@ -23,7 +24,10 @@ export const PostCard = () => {
   
   useEffect(() => {
     api.getPost(params.postId)
-    .then(data => {setPost(data); setComments(data.comments)})
+    .then(data => {
+      setPost(data); 
+      setComments(data.comments)
+    })
     .catch(error => alert(error))
   }, [])
 

@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react';
-//import PostsContext from '../../contexts/postsContext';
-import api from '../../utilits/api';
+import { useApi } from '../../hooks/useApi';
 import { Button, Snackbar, Alert } from '@mui/material';
 import { pink, deepPurple } from '@mui/material/colors';
 
 export const DeleteButton = ({ postId }) => {
+  const api = useApi();
   const [open, setOpen] = useState(false);
   const [openFail, setOpenFail] = useState(false);
-  //const {posts, setPosts} = useContext(PostsContext);
 
   const deleteThisPost = () => {
         api.deletePost(postId)

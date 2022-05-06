@@ -1,5 +1,4 @@
-import { config } from "./config";
-
+//import { config } from "./config";
 const onResponse = (res) => {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
 }
@@ -9,15 +8,6 @@ class Api {
         this._url = url;
         this._token = token;
     }
-    
-    /* getPosts() {
-        return fetch(`${this._url}/posts`, {
-            headers: {
-                authorization: `Bearer ${this._token}`
-            }
-        }).then(onResponse)
-        .catch(err => alert(err))
-    } */
 
     getPosts(pageNumber) {
         return fetch(`${this._url}/posts/paginate?page=${pageNumber}&limit=12`, {
@@ -25,7 +15,6 @@ class Api {
                 authorization: `Bearer ${this._token}`,
             }
         }).then(onResponse)
-        .catch(err => alert(err))
     }
 
     getUser() {
@@ -34,7 +23,6 @@ class Api {
                 authorization: `Bearer ${this._token}`
             }
         }).then(onResponse)
-        .catch(err => alert(err))
     }
 
     addLike(postId) {
@@ -44,7 +32,6 @@ class Api {
                 authorization: `Bearer ${this._token}`
             }
         }).then(onResponse)
-        .catch(err => alert(err))
     }
 
     deleteLike(postId) {
@@ -54,7 +41,6 @@ class Api {
                 authorization: `Bearer ${this._token}`
             }
         }).then(onResponse)
-        .catch(err => alert(err))
     }
 
     deletePost(postId) {
@@ -64,7 +50,6 @@ class Api {
                 authorization: `Bearer ${this._token}`
             }
         }).then(onResponse)
-        .catch(err => alert(err))
     }
     
     addPost(post) {
@@ -76,7 +61,6 @@ class Api {
             },
             body: JSON.stringify(post)
         }).then(onResponse)
-        .catch(err => alert(err))
     }
 
     getPost(postId) {
@@ -85,7 +69,6 @@ class Api {
                 authorization: `Bearer ${this._token}`
             }
         }).then(onResponse)
-        .catch(err => alert(err))
     }
 
     getComments(postId) {
@@ -94,10 +77,30 @@ class Api {
                 authorization: `Bearer ${this._token}`
             }
         }).then(onResponse)
-        .catch(err => alert(err))
     }
 
+    signUp(userData) {
+        return fetch(`${this._url}/signup`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        }).then(onResponse);
+    }
+
+    signIn(userData) {
+        return fetch(`${this._url}/signin`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        }).then(onResponse);
+    }
 }
 
-export default new Api(config);
+export default Api;
+
+//export default new Api(config);
 

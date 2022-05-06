@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import FavoritesContext from '../../contexts/favoritesContext';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import api from '../../utilits/api';
+import { useApi } from '../../hooks/useApi';
 import { Snackbar, Badge, Button, Alert } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -9,6 +9,7 @@ import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSati
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
 
 export const Likes = ({ likes, postId, isItFavorite }) => {
+  const api = useApi();
   const { writeLS, removeLS } = useLocalStorage();
   const [open, setOpen] = useState(false)
   const [badgeContent, setBadgeContent] = useState(likes.length);
