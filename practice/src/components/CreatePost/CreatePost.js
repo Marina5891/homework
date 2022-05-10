@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { pink, deepPurple } from '@mui/material/colors';
 
-export const CreatePost = ({ setPosts, quantityPages }) => {
+export const CreatePost = ({ setPostsTotal, page, setPage, quantityPages }) => {
   const navigate = useNavigate();
   const api = useApi();
   
@@ -24,7 +24,9 @@ export const CreatePost = ({ setPosts, quantityPages }) => {
       tags: tags.value.split(',')
     })
     .then((data => {
-      setPosts(prevState => [...prevState, data])
+      setPostsTotal(prevState => [...prevState, data])
+      localStorage.setItem('page', quantityPages)
+      setPage(quantityPages)
       navigate(`/?page=${quantityPages}`);
     }))
     .catch(error => alert(error))
@@ -54,7 +56,7 @@ export const CreatePost = ({ setPosts, quantityPages }) => {
           <TextField type='text' label='Заголовок' name='title' variant='outlined' fullWidth autoFocus/>
         </Grid>
         <Grid item xs={12} sx={{mb: 2}}>
-          <TextField type='text' label='Текст' name='text' variant='outlined' fullWidth multiline/>
+          <TextField type='text' label='Текст' name='text' variant='outlined' fullWidth multiline rows={6}/>
         </Grid>
         <Grid item xs={12} sx={{mb: 2}}>
           <TextField type='text' label='Теги' name='tags' variant='outlined' fullWidth placeholder='введите теги через запятую'/>

@@ -10,7 +10,8 @@ export const Tags = ({tags}) => {
     <Box 
         sx={{
         display: 'flex', 
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        mb: 2
         }}
     > 
         <Stack direction="row" spacing={1}>

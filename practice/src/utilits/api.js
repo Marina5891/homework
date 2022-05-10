@@ -1,4 +1,3 @@
-//import { config } from "./config";
 const onResponse = (res) => {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
 }
@@ -7,6 +6,14 @@ class Api {
     constructor({url, token}) {
         this._url = url;
         this._token = token;
+    }
+
+    getPostsTotal() {
+        return fetch(`${this._url}/posts`, {
+            headers: {
+                authorization: `Bearer ${this._token}`
+            }
+        }).then(onResponse)
     }
 
     getPosts(pageNumber) {
@@ -101,6 +108,4 @@ class Api {
 }
 
 export default Api;
-
-//export default new Api(config);
 

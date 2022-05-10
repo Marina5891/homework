@@ -1,16 +1,30 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useApi } from '../../hooks/useApi';
+import PostsContext from '../../contexts/postsContext';
 import { Button, Snackbar, Alert } from '@mui/material';
 import { pink, deepPurple } from '@mui/material/colors';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+
 
 export const DeleteButton = ({ postId }) => {
   const api = useApi();
+  const navigate = useNavigate();
+  const { setPostsTotal } = useContext(PostsContext);
   const [open, setOpen] = useState(false);
   const [openFail, setOpenFail] = useState(false);
+  const { readLS } = useLocalStorage();
 
   const deleteThisPost = () => {
+        const page = readLS('page')
         api.deletePost(postId)
-        .then(data => setOpen(true))
+        .then(api.getPostsTotal()
+          .then(data => {
+            setPostsTotal(data)
+            setOpen(true)
+            navigate(`/?page=${page}`)
+          })
+        )
         .catch(err => setOpenFail(true))
   }
 

@@ -4,10 +4,10 @@ import Typography from '@mui/material/Typography';
 export const Text = ({ text }) => {
   return (
     <Typography 
-      component='p'
+      paragraph
       sx={{
         fontSize: '14px',
-        mb: 4
+        mb: 1
       }}
     >
       {text}

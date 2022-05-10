@@ -47,6 +47,7 @@ function App () {
     const [favorite, setFavorite] = useState(JSON.parse(localStorage.getItem('favorite')) || [])
     const [page, setPage] = useState(JSON.parse(localStorage.getItem('page')) || 1)
     const [quantityPages, setQuantityPages] = useState(0);
+    const [postsTotal, setPostsTotal] = useState(null);
     
     const [modalState, setModalState] = useState({
       isOpen: false,
@@ -57,6 +58,20 @@ function App () {
       isOpen: true,
       msg: null,
     });
+
+    useEffect(() => {
+      api.getUser()
+      .then((user) => setUser(user))
+      .then(api.getPostsTotal().then(posts => {
+        setPostsTotal(posts)
+      }))
+      .catch(() => setModalState(() => {
+        return {
+          isOpen: true,
+          msg: 'Возникла непредвиденная ошибка'
+        }
+      }))
+    }, []);
 
     useEffect(() => {
           const token = readLS('token');
@@ -71,31 +86,32 @@ function App () {
       }, []);
 
     useEffect(() => {
-      api.getPosts(page)
-      .then(post => {
-        setPosts(post.posts)
-        setQuantityPages(Math.ceil(post.total/12))
-      })
-      .catch(err => alert(err))
-      }, [page, quantityPages, favorite, user]) 
-      
-    useEffect(() => {
-      api.getUser()
-      .then(user => setUser(user))
-      .catch(err => alert(err))
-    }, [])
-
+      if(user){
+        api.getPosts(page)
+        .then(post => {
+          setPosts(post.posts)
+          setQuantityPages(Math.ceil(post.total/12))
+        })
+        .catch(() => setModalState(() => {
+          return {
+            isOpen: true,
+            msg: 'Возникла непредвиденная ошибка'
+          }
+        }))
+      }
+    }, [page, quantityPages, favorite, user, postsTotal]); 
+    
     return (
       <ThemeProvider theme={theme}>
-        <FavoritesContext.Provider value={{favorite, setFavorite}}>
-          <UserContext.Provider value={{user, setUser}}>
-            <PostsContext.Provider value={{posts, setPosts}}>
-              <ModalContext.Provider value={{modalState, setModalState}}>
-                <ModalFormContext.Provider value={{modalFormState, setModalFormState}}>  
+        <UserContext.Provider value={{user, setUser}}>
+          <ModalContext.Provider value={{modalState, setModalState}}>
+            <ModalFormContext.Provider value={{modalFormState, setModalFormState}}>
+              <PostsContext.Provider value={{posts, setPosts, postsTotal, setPostsTotal}}>
+                <FavoritesContext.Provider value={{favorite, setFavorite}}>
                   <CustomModal />
                   <ModalForm />             
                   <div className='app'>
-                    <Header />
+                    <Header setPage={setPage} />
                       <Routes>
                         <Route path='/' element={
                             <MainContainer 
@@ -107,7 +123,13 @@ function App () {
                         />
                         <Route 
                           path='create' 
-                          element={<CreatePost setPosts={setPosts} quantityPages={quantityPages}/>} 
+                          element={
+                            <CreatePost 
+                              setPostsTotal={setPostsTotal} 
+                              page={page}
+                              quantityPages={quantityPages}
+                              setPage={setPage}
+                            />} 
                         />
                         <Route 
                           path='post/:postId' 
@@ -116,11 +138,11 @@ function App () {
                       </Routes>
                     <Footer />
                   </div>
-                </ModalFormContext.Provider>
-              </ModalContext.Provider>
-            </PostsContext.Provider>
-          </UserContext.Provider>
-        </FavoritesContext.Provider>
+                  </FavoritesContext.Provider>
+                </PostsContext.Provider>
+              </ModalFormContext.Provider>
+            </ModalContext.Provider>
+          </UserContext.Provider> 
       </ThemeProvider>
     )
 }

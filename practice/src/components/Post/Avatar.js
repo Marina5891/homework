@@ -3,19 +3,20 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 
-export const UserAvatar = ({avatar, email}) => {
+export const UserAvatar = ({avatar, name}) => {
   
   return (
     <Box sx={{
         display: 'flex', 
-        alignItems: 'center'  
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start'  
       }}>
         <Avatar 
         src={avatar} 
         sx={{ 
           width: '60px',
           height: '60px',
-          mb: 2,
+          mb: 1,
           mr: 3
         }}
         variant='circular'
@@ -26,7 +27,7 @@ export const UserAvatar = ({avatar, email}) => {
           fontSize: '14px'
         }}
       >
-        {email}
+        {name}
       </Typography> 
       </Box>
   )

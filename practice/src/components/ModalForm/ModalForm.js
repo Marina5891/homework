@@ -1,9 +1,7 @@
 import React, { useContext, useState } from 'react';
 import ModalFormContext from '../../contexts/modalFormContext';
-import ModalContext from '../../contexts/modalContext';
 import UserContext from '../../contexts/userContext';
 import { useApi } from '../../hooks/useApi';
-//import { useLocalStorage } from '../hooks/useLocalStorage';
 import { TextField, Modal, Typography, Button, Box, Grid } from '@mui/material';
 
 const style = {
@@ -21,16 +19,9 @@ const style = {
 export const ModalForm = () => {
     const { modalFormState, setModalFormState } = useContext(ModalFormContext);
     const { setUser } = useContext(UserContext);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const api = useApi();
-
-    const handleClose = () =>
-        setModalFormState(() => {
-            return { isOpen: false, msg: null };
-        });
 
     const handleEmailChange = ({ target }) => {
         setEmail(target.value);
@@ -50,13 +41,14 @@ export const ModalForm = () => {
                 msg: null,
             };
         });
+        setEmail('');
+        setPassword('');
     };
 
 
     const signUp = () => {
         api.signUp({ email, password })
             .then((createdUser) => {
-                console.log(createdUser)
                 return api.signIn({ email, password });
             })
             .then(onSignIn)

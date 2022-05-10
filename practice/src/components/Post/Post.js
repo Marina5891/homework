@@ -5,10 +5,9 @@ import { Title } from './Title';
 import { UserAvatar } from './Avatar';
 import { Text } from './Text';
 import { Tags } from './Tags';
-import { TimeLine } from './TimeLine';
 import { Likes } from './Likes';
 import { DeleteButton } from './DeleteButton';
-import { Card, CardContent, CardMedia, Divider, Paper } from '@mui/material';
+import { Card, CardContent, CardMedia, Divider, Paper, Typography } from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
 import Oops from '../../../public/assets/png/Oops.png';
 import '../../style.css';
@@ -24,8 +23,7 @@ function Post({ post, isItFavorite }) {
     { avatar, email, _id: myId } = author) : (
     (avatar = Oops) && (email = 'No email'))
   
-  const createdDate = dayjs(created_at).format('DD/MM/YYYY, HH:mm:ss')
-  const updatedDate = dayjs(updated_at).format('DD/MM/YYYY, HH:mm:ss')
+  const createdDate = dayjs(created_at).format('D MMMM YYYY')
 
   const arrayTags = tags.filter(tag => {
     return (tag !== '' && tag != 'undefined' && tag !== ' ') 
@@ -36,11 +34,11 @@ function Post({ post, isItFavorite }) {
       elevation={4}  
       sx={{
         width: 350, 
-        marginBottom: 3,
+        height: '100%'
       }}
     >
     <Card 
-      sx={{padding: 1, borderColor: 'transparent'}}
+      sx={{borderColor: 'transparent'}}
       variant='outlined'
     >
       <CardContent>
@@ -48,7 +46,7 @@ function Post({ post, isItFavorite }) {
           <Title title={title} />
         </Link>
         <Divider sx={{mb: 2, backgroundColor: deepPurple[100]}}/>
-        <UserAvatar avatar={avatar} email={email} />
+        <UserAvatar avatar={avatar} name={author?.name} />
         <CardMedia 
           component="img"
           height="200"
@@ -58,7 +56,10 @@ function Post({ post, isItFavorite }) {
         />
         <Text text={text} />
         <Tags tags={arrayTags} />
-        <TimeLine createdDate={createdDate} updatedDate={updatedDate} />
+        <Typography paragraph variant='subtitle2' color='primary.light'>
+          Дата создания: {createdDate}
+        </Typography>
+        
         <Likes 
           likes={likes} 
           postId={_id} 
@@ -67,7 +68,7 @@ function Post({ post, isItFavorite }) {
         {
           user?._id === myId ?
           (<DeleteButton postId={_id} />) :
-          (<span style={{display: 'none'}}><DeleteButton /></span>)
+          (<span />)
         }
       </CardContent>
     </Card>

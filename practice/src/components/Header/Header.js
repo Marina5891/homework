@@ -4,7 +4,8 @@ import { NavBar } from '../NavBar/NavBar';
 import { Toolbar, Container, AppBar } from '@mui/material';
 import { deepPurple } from '@mui/material/colors';
 
-export const Header = () => {
+export const Header = ({ setPage }) => {
+
   return (
       <AppBar 
         position='fixed' 
@@ -16,7 +17,7 @@ export const Header = () => {
         <Container maxWidth='lg'>
           <Toolbar>
             <Logo />
-            <NavBar />
+            <NavBar setPage={setPage} />
           </Toolbar>
         </Container>
       </AppBar>

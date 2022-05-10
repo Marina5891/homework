@@ -49,9 +49,9 @@ export const Likes = ({ likes, postId, isItFavorite }) => {
       {
         isItFavorite ? (
         <>
-        <Button onClick={removeFavorite}>
+        <Button onClick={removeFavorite} sx={{mb: 1}}>
           <Badge badgeContent={badgeContent} color='badge' showZero>
-            <FavoriteIcon color='primary' sx={{mb: 2}} />
+            <FavoriteIcon color='primary' />
           </Badge>
         </Button>
         <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
@@ -60,9 +60,9 @@ export const Likes = ({ likes, postId, isItFavorite }) => {
         </>
         ) : (
         <>
-        <Button onClick={addFavorite}>
+        <Button onClick={addFavorite} sx={{mb: 1}}>
           <Badge badgeContent={badgeContent} color='badge' showZero>
-            <FavoriteBorderOutlinedIcon color='primary' sx={{mb: 2}} />
+            <FavoriteBorderOutlinedIcon color='primary' />
           </Badge>  
         </Button>
         <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
